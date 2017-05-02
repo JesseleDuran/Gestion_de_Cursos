@@ -81,7 +81,7 @@ public class MenuView extends javax.swing.JFrame {
         addRegistrar();
     }
     
-     private void addRegistrar()
+    private void addRegistrar()
     {
         JMenuItem participante = new JMenuItem("Participante");
         participante.addActionListener(new ActionListener(){
@@ -97,7 +97,12 @@ public class MenuView extends javax.swing.JFrame {
         instructor.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                InstructorRegisterView instructorRegisterView = new InstructorRegisterView(db);
+                InstructorRegisterView instructorRegisterView = null;
+                try {
+                    instructorRegisterView = new InstructorRegisterView(db);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 instructorRegisterView.setVisible(true);
             }
         });

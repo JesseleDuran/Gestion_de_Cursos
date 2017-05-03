@@ -40,7 +40,7 @@ public class Controller<T>
     }
     
     /**
-     *
+
      * @param nombre_tabla
      * @param db
      * @return

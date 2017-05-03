@@ -79,6 +79,7 @@ public class MenuView extends javax.swing.JFrame {
     private void initButtons()
     {
         addRegistrar();
+        addEdit();
     }
     
     private void addRegistrar()
@@ -151,4 +152,83 @@ public class MenuView extends javax.swing.JFrame {
         });
         registrarMenu.add(aula);            
     }
+    
+    private void addEdit()
+    {
+        JMenuItem participante = new JMenuItem("Participante");
+        participante.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                try {
+                    ClienteEditView clienteEditView = new ClienteEditView(db);
+                    clienteEditView.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        });
+        verMenu.add(participante); 
+        
+        JMenuItem instructor = new JMenuItem("Instructor");
+        instructor.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                InstructorRegisterView instructorRegisterView = null;
+                try {
+                    instructorRegisterView = new InstructorRegisterView(db);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                instructorRegisterView.setVisible(true);
+            }
+        });
+        verMenu.add(instructor);
+        
+        JMenuItem curso = new JMenuItem("Curso");
+        curso.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                CursoRegisterView cursoRegisterView = null;
+                try {
+                    cursoRegisterView = new CursoRegisterView(db);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                cursoRegisterView.setVisible(true);
+            }
+        });
+        verMenu.add(curso);
+        
+        JMenuItem admin = new JMenuItem("Administrador");
+        admin.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                System.out.println("hola");
+            }
+        });
+        
+        JMenuItem horario = new JMenuItem("Horario");
+        horario.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                HorarioRegisterView horarioRegisterView = new HorarioRegisterView(db);
+                horarioRegisterView.setVisible(true);
+            }
+        });
+        verMenu.add(horario);
+        
+        JMenuItem aula = new JMenuItem("Aula");
+        aula.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                ClienteRegisterView clienteRegisterView = new ClienteRegisterView(db);
+                clienteRegisterView.setVisible(true);
+            }
+        });
+        verMenu.add(aula);            
+    }
+    
+    
+    
 }

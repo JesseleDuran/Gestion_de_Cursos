@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
+import miniproyecto1.models.Curso;
 import miniproyecto1.models.Horario;
 
 /**
@@ -165,7 +166,21 @@ public class HorarioIndexView extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            Controller<Horario> horario = new Controller<Horario>(Horario.class);
+            LinkedHashMap<String, Object> actual = new LinkedHashMap<String, Object>();
+            LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
+            
+            actual.put("id", id);
+            result = horario.findOne(actual, db);
+            
+            HorarioUpdateView updateView = new HorarioUpdateView(db, result);
+            updateView.setVisible(true);
+            dispose();
+        } catch (Exception ex) 
+        {
+            Logger.getLogger(ClienteIndexView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

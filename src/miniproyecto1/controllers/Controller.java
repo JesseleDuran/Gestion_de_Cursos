@@ -167,7 +167,7 @@ public class Controller<T>
     }
     
     
-    public boolean edit(LinkedHashMap<String, Object> hash, MySQLdbConnection db) throws Exception
+    public boolean edit(LinkedHashMap<String, Object> hash, MySQLdbConnection db, Integer id) throws Exception
     {
         String sql = "UPDATE " + getGenericName().toLowerCase() + " SET ";
         int i = 0;
@@ -178,7 +178,7 @@ public class Controller<T>
             if(hash.size() == i)
             {
                 sql += entry.getKey() + "=";
-                sql += entry.getKey() + " WHERE ";
+                sql += "'"+ entry.getValue() + "' WHERE ";
                
             }
             else
@@ -189,14 +189,13 @@ public class Controller<T>
             }
             
         }
-        
+        if(id != 0)
+        {
+            sql += "id='" + id + "';"; 
+        }
         for(Entry<String, Object> entry: hash.entrySet()) 
         {
-            if(entry.getKey().equals("id"))
-            {
-               sql += "id='" + entry.getValue()+ "';"; 
-            }
-            
+      
             if(entry.getKey().equals("cedula"))
             {
                sql += "cedula='" + entry.getValue()+ "';"; 

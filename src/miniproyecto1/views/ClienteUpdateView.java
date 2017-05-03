@@ -189,7 +189,7 @@ public class ClienteUpdateView extends javax.swing.JFrame {
 
                 Controller<Cliente> controller = new Controller<Cliente>(Cliente.class);
 
-                if(controller.edit(map, db) == true)
+                if(controller.edit(map, db, 0) == true)
                 {
                     dispose();
                     JOptionPane.showMessageDialog(null, "El Participante se ha actualizado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);

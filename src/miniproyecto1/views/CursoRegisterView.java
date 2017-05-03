@@ -13,7 +13,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
 import miniproyecto1.models.Aula;
@@ -33,9 +37,9 @@ public class CursoRegisterView extends javax.swing.JFrame {
      */
     public CursoRegisterView(MySQLdbConnection db) throws Exception {
         super("Registrar Curso");
-        this.db = db;
+        this.db = db;  
         initComponents();
-        initComboBox();
+        initJList();
         restringirTeclas();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -58,11 +62,13 @@ public class CursoRegisterView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cancelarButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        aulaComboBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         estatusComboBox = new javax.swing.JComboBox<>();
-        horarioComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        aulaList = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        horarioList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,13 +117,6 @@ public class CursoRegisterView extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel6.setText("Tope de Estudiantes");
 
-        aulaComboBox.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        aulaComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aulaComboBoxActionPerformed(evt);
-            }
-        });
-
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel7.setText("Aula");
 
@@ -129,15 +128,16 @@ public class CursoRegisterView extends javax.swing.JFrame {
             }
         });
 
-        horarioComboBox.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        horarioComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                horarioComboBoxActionPerformed(evt);
-            }
-        });
-
         jLabel8.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel8.setText("Horario");
+
+        aulaList.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        aulaList.setModel(modelList);
+        jScrollPane1.setViewportView(aulaList);
+
+        horarioList.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        horarioList.setModel(horarioModelList);
+        jScrollPane2.setViewportView(horarioList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,12 +151,7 @@ public class CursoRegisterView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tituloField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
@@ -164,13 +159,19 @@ public class CursoRegisterView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(topeField, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(estatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(aulaComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(horarioComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 147, Short.MAX_VALUE)))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tituloField, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,16 +195,16 @@ public class CursoRegisterView extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(aulaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(horarioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,6 +215,9 @@ public class CursoRegisterView extends javax.swing.JFrame {
     }//GEN-LAST:event_tituloFieldActionPerformed
 
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
+        List aulas = aulaList.getSelectedValuesList();
+        List horarios = horarioList.getSelectedValuesList();
+  
         try
         {
             if(validaciones() != true)
@@ -237,29 +241,31 @@ public class CursoRegisterView extends javax.swing.JFrame {
                 
                 if(controller.insert(map, db) == true)
                 {
-                    LinkedHashMap<String, Object> mapAula_curso = new LinkedHashMap<String,Object>();
-                
-                    mapAula_curso.put("id_aula", Integer.parseInt(aulaComboBox.getSelectedItem().toString()));
-                    mapAula_curso.put("id_curso", controller.getLast(db));
-
-                    Controller<Aula_curso> controllerAula_curso = new Controller<Aula_curso>(Aula_curso.class);
-                    
-                    LinkedHashMap<String, Object> mapCurso_horario = new LinkedHashMap<String,Object>();
-                
+                    Controller<Aula_curso> controllerAula_curso = new Controller<Aula_curso>(Aula_curso.class); 
                     Controller<Curso_horario> controllerCurso_horario = new Controller<Curso_horario>(Curso_horario.class);
-                    
-                    mapCurso_horario.put("id_curso", controller.getLast(db));
-                    mapCurso_horario.put("id_horario", (controller.findHorario(horarioComboBox.getSelectedItem().toString(), db)));
-                    
-                    if(controllerAula_curso.insert(mapAula_curso, db) == true && controllerCurso_horario.insert(mapCurso_horario,db)==true)
+                    for (int i=0;i < aulas.size();i++)
                     {
-                        dispose();
-                        JOptionPane.showMessageDialog(null, "El curso se ha registrado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
+                        LinkedHashMap<String, Object> mapAula_curso = new LinkedHashMap<String,Object>();
+                        
+                        mapAula_curso.put("id_aula", aulas.get(i));
+                        mapAula_curso.put("id_curso", controller.getLast(db));
+                        System.out.println(mapAula_curso);
+                        controllerAula_curso.insert(mapAula_curso, db);
                     }
-                    else
+                    
+                    for (int i=0;i < horarios.size();i++)
                     {
-                        JOptionPane.showMessageDialog(null,"Error al registrar curso","ERROR",JOptionPane.ERROR_MESSAGE);
+                        LinkedHashMap<String, Object> mapCurso_horario = new LinkedHashMap<String,Object>();
+                        
+                        mapCurso_horario.put("id_curso", controller.getLast(db));
+                        mapCurso_horario.put("id_horario", (controller.findHorario(horarios.get(i).toString(), db)));
+                 
+                        System.out.println(mapCurso_horario);
+                        controllerCurso_horario.insert(mapCurso_horario, db);
                     }
+    
+                    dispose();
+                    JOptionPane.showMessageDialog(null, "El curso se ha registrado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else
                 {
@@ -283,24 +289,16 @@ public class CursoRegisterView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_topeFieldActionPerformed
 
-    private void aulaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aulaComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aulaComboBoxActionPerformed
-
     private void estatusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estatusComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_estatusComboBoxActionPerformed
 
-    private void horarioComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horarioComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_horarioComboBoxActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarButton;
-    private javax.swing.JComboBox<String> aulaComboBox;
+    private javax.swing.JList<String> aulaList;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JComboBox<String> estatusComboBox;
-    private javax.swing.JComboBox<String> horarioComboBox;
+    private javax.swing.JList<String> horarioList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -308,10 +306,14 @@ public class CursoRegisterView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField tituloField;
     private javax.swing.JTextField topeField;
     // End of variables declaration//GEN-END:variables
     private KeyListener eventosDeTecla;
+    DefaultListModel modelList = new DefaultListModel();
+    DefaultListModel horarioModelList = new DefaultListModel();
     MySQLdbConnection db;
     
     private void restringirTeclas()
@@ -356,8 +358,11 @@ public class CursoRegisterView extends javax.swing.JFrame {
         return false;
     }
     
-    public void initComboBox() throws Exception
+    public void initJList() throws Exception
     {
+       
+        aulaList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        horarioList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         
         Controller<Aula> aula = new Controller<Aula>(Aula.class);
         List<LinkedHashMap<String, Object>> list = aula.getAll(db); //lista de resultados
@@ -367,8 +372,9 @@ public class CursoRegisterView extends javax.swing.JFrame {
             LinkedHashMap<String, Object> item = i.next();
             String valor = (String) item.get("id");
             System.out.println("aula:"+valor);
-            aulaComboBox.addItem(valor);
+            modelList.addElement(valor);
         }
+        
         
         Controller<Horario> horario = new Controller<Horario>(Horario.class);
         List<LinkedHashMap<String, Object>> listHorario = horario.getAll(db); //lista de resultados
@@ -380,7 +386,7 @@ public class CursoRegisterView extends javax.swing.JFrame {
             String valorFinal = (String) itemHorario.get("hr_final");
             String valorCombo = (String) (valorInicial+" - "+valorFinal);
             System.out.println("combo:"+valorCombo);
-            horarioComboBox.addItem(valorCombo);
+            horarioModelList.addElement(valorCombo);
         }   
     }
     

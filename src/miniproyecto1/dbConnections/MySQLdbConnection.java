@@ -22,7 +22,7 @@ public class MySQLdbConnection {
     protected String userPassword;
     protected String serverUrl;
     
-    public MySQLdbConnection(String serverUrl, String dbName, String login, String password)
+    public MySQLdbConnection(String dbName, String login, String password)
     {
         this.serverUrl = "jdbc:mysql://localhost:3306/"+dbName;
         this.dbName = dbName;

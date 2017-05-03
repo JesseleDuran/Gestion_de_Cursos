@@ -30,7 +30,7 @@ public class MiniProyecto1 {
      */
     public static void main(String[] args) throws Exception 
     {
-        MySQLdbConnection con = new MySQLdbConnection("","cursos","jessele","6221");
+        MySQLdbConnection con = new MySQLdbConnection("cursos","jessele","6221");
         
         /*Controller<Horario> horario = new Controller<Horario>(Horario.class);
         List<LinkedHashMap<String, Object>> list = instructor.getAll(con); //lista de resultados

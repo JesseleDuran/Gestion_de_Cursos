@@ -13,6 +13,7 @@ import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
 import miniproyecto1.models.Admin;
 import miniproyecto1.models.Cliente;
+import miniproyecto1.utils.Encrypter;
 
 /**
  *
@@ -184,7 +185,7 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 map.put("nombre", nameField.getText());
                 map.put("apellido", apellidoField.getText());
                 map.put("cedula", Integer.parseInt(ciField.getText())); 
-                map.put("clave", claveField.getText());
+                map.put("clave", Encrypter.encrypt(claveField.getText()));// aqui Encripta!
 
                 Controller<Admin> controller = new Controller<Admin>(Admin.class);
 

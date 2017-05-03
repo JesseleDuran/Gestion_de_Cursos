@@ -8,11 +8,15 @@ package miniproyecto1.views;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import miniproyecto1.controllers.AdminController;
+import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
+import miniproyecto1.models.Admin;
+import miniproyecto1.models.Inscripcion;
 
 /**
  *
@@ -137,30 +141,45 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
     private void ingresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarButtonActionPerformed
-        int cedula = Integer.parseInt(ciField.getText());
-        String pass = passwordField.getText();
-        AdminController admController = new AdminController();
-        try {
-            if(admController.auth(cedula, pass, db)== 0)
-            {
-                JOptionPane.showMessageDialog(null, "El nombre de usuario y contraseña no coinciden"
-                        + ", por favor vuelva a intentarlo"
-                        , "Error al Iniciar Sesión",
-                        JOptionPane.ERROR_MESSAGE);  
+        try {                                               
+            int cedula = Integer.parseInt(ciField.getText());
+            String pass = passwordField.getText();
+            AdminController admController = new AdminController();
+            
+            LinkedHashMap<String, Object> adm = new LinkedHashMap<String,Object>();
+            LinkedHashMap<String, Object> iniciado = new LinkedHashMap<String,Object>();
+            Controller<Admin> controllerAdm = new Controller<Admin>(Admin.class);
+            adm.put("cedula", cedula);
+            
+            iniciado = controllerAdm.findOne(adm, db);
+            System.out.println(iniciado);
+            
+            
+            
+            try {
+                if(admController.auth(cedula, pass, db)== 0)
+                {
+                    JOptionPane.showMessageDialog(null, "El nombre de usuario y contraseña no coinciden"
+                            + ", por favor vuelva a intentarlo"
+                            , "Error al Iniciar Sesión",  
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    dispose();
+                    MenuView menuFrame = new MenuView(db,  iniciado);
+                    menuFrame.setVisible(true);
+                    
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Error","ERROR",JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else
-            {
-                dispose();
-                MenuView menuFrame = new MenuView(db);
-                menuFrame.setVisible(true);
-                
-            }
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Error","ERROR",JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+    
     }//GEN-LAST:event_ingresarButtonActionPerformed
 
     

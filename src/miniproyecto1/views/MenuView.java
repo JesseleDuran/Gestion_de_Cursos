@@ -9,11 +9,19 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
+import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
+import miniproyecto1.controllers.ReportesController;
 import miniproyecto1.dbConnections.MySQLdbConnection;
+import miniproyecto1.models.Aula;
 import miniproyecto1.models.Horario;
 import miniproyecto1.utils.PDFGenerator;
 
@@ -26,10 +34,12 @@ public class MenuView extends javax.swing.JFrame {
     /**
      * Creates new form MenuView
      */
-    public MenuView(MySQLdbConnection db) {
+    public MenuView(MySQLdbConnection db, LinkedHashMap<String, Object> adm) throws Exception {
         super("Menú Principal");
         initComponents();
+        this.adm = adm;
         this.db = db;
+        fillTable();
         initButtons();
 
     }
@@ -43,13 +53,54 @@ public class MenuView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        registrarInscripcionButton = new javax.swing.JButton();
+        nombreLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         registrarMenu = new javax.swing.JMenu();
         verMenu = new javax.swing.JMenu();
         reportesMenu = new javax.swing.JMenu();
         horariosReporte = new javax.swing.JMenuItem();
+        aulasReporte = new javax.swing.JMenuItem();
+        cursosReporte = new javax.swing.JMenuItem();
+        cerrrarSesionMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        jLabel3.setText("¡Cursos Disponibles!");
+
+        registrarInscripcionButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        registrarInscripcionButton.setText("Realizar Inscripción");
+        registrarInscripcionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarInscripcionButtonActionPerformed(evt);
+            }
+        });
+
+        nombreLabel.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        nombreLabel.setText("Bienvenida, Nombre Apellido");
 
         menuBar.setAlignmentX(0.9F);
 
@@ -62,8 +113,9 @@ public class MenuView extends javax.swing.JFrame {
         menuBar.add(verMenu);
 
         reportesMenu.setText("Reportes");
+        reportesMenu.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
 
-        horariosReporte.setText("Horarios");
+        horariosReporte.setText("Horarios Actuales");
         horariosReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 horariosReporteActionPerformed(evt);
@@ -71,7 +123,37 @@ public class MenuView extends javax.swing.JFrame {
         });
         reportesMenu.add(horariosReporte);
 
+        aulasReporte.setText("Estatus de las Aulas");
+        aulasReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aulasReporteActionPerformed(evt);
+            }
+        });
+        reportesMenu.add(aulasReporte);
+
+        cursosReporte.setText("Cursos Activos");
+        cursosReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cursosReporteActionPerformed(evt);
+            }
+        });
+        reportesMenu.add(cursosReporte);
+
         menuBar.add(reportesMenu);
+
+        cerrrarSesionMenu.setText("Cerrar Sesión");
+        cerrrarSesionMenu.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        cerrrarSesionMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrrarSesionMenuMouseClicked(evt);
+            }
+        });
+        cerrrarSesionMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrrarSesionMenuActionPerformed(evt);
+            }
+        });
+        menuBar.add(cerrrarSesionMenu);
 
         setJMenuBar(menuBar);
 
@@ -79,11 +161,34 @@ public class MenuView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 489, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(171, 171, 171)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nombreLabel)
+                .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(registrarInscripcionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(210, 210, 210))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombreLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(registrarInscripcionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,7 +200,7 @@ public class MenuView extends javax.swing.JFrame {
         
         String result;
         try {
-            result = PDFGenerator.createPDFFromHashMapList(this, ctrl.getAll(db));
+            result = PDFGenerator.createPDFFromHashMapList(this, ctrl.getAll(db), "Horarios Actuales");
             Desktop.getDesktop().open(new File(result));
         } catch (Exception ex) {
             //TODO Añadir error ! 
@@ -103,19 +208,76 @@ public class MenuView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_horariosReporteActionPerformed
 
+    private void aulasReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aulasReporteActionPerformed
+        // TODO add your handling code here:
+        Controller<Aula> aulas = new Controller<Aula>(Aula.class);
+        
+        String result;
+        try {
+            result = PDFGenerator.createPDFFromHashMapList(this, aulas.getAll(db), "Estatus de Aulas");
+            Desktop.getDesktop().open(new File(result));
+        } catch (Exception ex) {
+            //TODO Añadir error ! 
+        }
+    }//GEN-LAST:event_aulasReporteActionPerformed
+
+    private void cursosReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cursosReporteActionPerformed
+        // TODO add your handling code here:
+        ReportesController reporte = new ReportesController();
+        
+        String result;
+        try {
+            result = PDFGenerator.createPDFFromHashMapList(this, reporte.mostrarCursosActivos(db), "Cursos Activos");
+            Desktop.getDesktop().open(new File(result));
+        } catch (Exception ex) {
+            //TODO Añadir error ! 
+        }
+    }//GEN-LAST:event_cursosReporteActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+     
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void cerrrarSesionMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrrarSesionMenuActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_cerrrarSesionMenuActionPerformed
+
+    private void cerrrarSesionMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrrarSesionMenuMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_cerrrarSesionMenuMouseClicked
+
+    private void registrarInscripcionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarInscripcionButtonActionPerformed
+        try {
+            InscripcionRegisterView inscripcionRegisterView = new InscripcionRegisterView(db, adm);
+            inscripcionRegisterView.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_registrarInscripcionButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aulasReporte;
+    private javax.swing.JMenu cerrrarSesionMenu;
+    private javax.swing.JMenuItem cursosReporte;
     private javax.swing.JMenuItem horariosReporte;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JLabel nombreLabel;
+    private javax.swing.JButton registrarInscripcionButton;
     private javax.swing.JMenu registrarMenu;
     private javax.swing.JMenu reportesMenu;
     private javax.swing.JMenu verMenu;
     // End of variables declaration//GEN-END:variables
     MySQLdbConnection db;
+    LinkedHashMap<String, Object> adm;
     private void initButtons()
     {
         addRegistrar();
         addEdit();
+        nombreLabel.setText("Bienvenida, " + adm.get("1") + adm.get("2"));
     }
     
     private void addRegistrar()
@@ -278,6 +440,51 @@ public class MenuView extends javax.swing.JFrame {
             }
         });
         verMenu.add(aula);            
+    }
+    
+    
+    public void fillTable() throws Exception
+    {
+       String sql = "SELECT * FROM curso WHERE estatus = 1;";
+        db.open();
+        ResultSet resultSet = db.getResultSet(sql);
+        jTable1.setModel(buildTableModel(resultSet));
+        db.close();
+    }
+ 
+    
+    public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException 
+    {
+        ResultSetMetaData metaData = rs.getMetaData();
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        int columnCount = metaData.getColumnCount();
+        for (int column = 1; column <= columnCount; column++) 
+        {
+            columnNames.add(metaData.getColumnName(column));
+        }
+        System.out.println(columnNames);
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        while (rs.next()) 
+        {
+            Vector<Object> vector = new Vector<Object>();
+            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) 
+            {
+                vector.add(rs.getObject(columnIndex));
+            }
+            data.add(vector);
+        }
+        System.out.println(data);
+
+ 
+        return new DefaultTableModel(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
     }
     
     

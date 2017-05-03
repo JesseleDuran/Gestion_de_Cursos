@@ -30,7 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class PDFGenerator 
 {
-    public static String createPDFFromHashMapList(JFrame parent,List<LinkedHashMap<String, Object>> list)
+    public static String createPDFFromHashMapList(JFrame parent,List<LinkedHashMap<String, Object>> list, String title)
     {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Files","pdf"));
@@ -44,7 +44,7 @@ public class PDFGenerator
             String path = fileToSave.getAbsolutePath();
             if(!path.contains(".pdf"))
                 path+= ".pdf";
-            boolean saved = createPDFFromHashMapList(list, path);
+            boolean saved = createPDFFromHashMapList(list, path, title);
             if(!saved)
             {
                 JOptionPane.showMessageDialog(parent, "El archivo no pudo ser guardado", "Error", JOptionPane.ERROR_MESSAGE);
@@ -55,7 +55,7 @@ public class PDFGenerator
         return "";
     }
     
-    public static boolean createPDFFromHashMapList(List<LinkedHashMap<String, Object>> list, String out)
+    public static boolean createPDFFromHashMapList(List<LinkedHashMap<String, Object>> list, String out, String title)
     {
         Document document = new Document();
         try
@@ -81,10 +81,9 @@ public class PDFGenerator
                     table.addCell(o.getValue().toString());
                 }
             }
-                 
-                     
+            document.addTitle("Reporte de "+title);
+            
             document.add(table);
-             
             document.close();
             return true;
         }catch(Exception e)

@@ -150,7 +150,7 @@ public class LoginView extends javax.swing.JFrame {
             }
             else
             {
-                this.setVisible(false);
+                dispose();
                 MenuView menuFrame = new MenuView(db);
                 menuFrame.setVisible(true);
                 

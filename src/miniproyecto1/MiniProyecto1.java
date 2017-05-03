@@ -11,12 +11,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import javax.swing.JFrame;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
 import miniproyecto1.models.Aula;
 import miniproyecto1.models.Cliente;
+import miniproyecto1.models.Curso;
 import miniproyecto1.models.Horario;
 import miniproyecto1.models.Instructor;
+import miniproyecto1.utils.PDFGenerator;
+import static miniproyecto1.utils.PDFGenerator.createPDFFromHashMapList;
 import miniproyecto1.views.LoginView;
 
 /**
@@ -48,10 +52,7 @@ public class MiniProyecto1 {
         }*/
 
         LoginView loginFrame = new LoginView(con);
-        loginFrame.setVisible(true);
-        
-        
-        
+        loginFrame.setVisible(true);        
     }
     
 }

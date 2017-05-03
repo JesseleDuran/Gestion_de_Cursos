@@ -49,9 +49,9 @@ public class AdminRegisterView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         aceptarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
-        claveField = new javax.swing.JTextField();
         nameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        claveField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,13 +97,6 @@ public class AdminRegisterView extends javax.swing.JFrame {
             }
         });
 
-        claveField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        claveField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                claveFieldActionPerformed(evt);
-            }
-        });
-
         nameField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         nameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,15 +121,15 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ciField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ciField, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(apellidoField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(apellidoField, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(claveField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                        .addComponent(claveField)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -159,8 +152,8 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(claveField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(claveField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -211,10 +204,6 @@ public class AdminRegisterView extends javax.swing.JFrame {
         dispose() ;
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
-    private void claveFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claveFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_claveFieldActionPerformed
-
     private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameFieldActionPerformed
@@ -230,7 +219,7 @@ public class AdminRegisterView extends javax.swing.JFrame {
     private javax.swing.JTextField apellidoField;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JTextField ciField;
-    private javax.swing.JTextField claveField;
+    private javax.swing.JPasswordField claveField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

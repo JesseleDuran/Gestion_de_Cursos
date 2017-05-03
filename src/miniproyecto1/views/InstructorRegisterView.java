@@ -256,11 +256,11 @@ public class InstructorRegisterView extends javax.swing.JFrame {
                 if(instructor.insert(map, db) == true)
                 {
                     dispose();
-                    JOptionPane.showMessageDialog(null, "El Participante se ha registrado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El Instructor se ha registrado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,"Error al registrar Cliente","ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Error al registrar Instructor","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }    
         }

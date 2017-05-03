@@ -160,12 +160,12 @@ public class Controller<T>
         {
             if(entry.getKey().equals("id"))
             {
-               sql += "id=" + entry.getValue()+ ";"; 
+               sql += "id='" + entry.getValue()+ "';"; 
             }
             
             if(entry.getKey().equals("cedula"))
             {
-               sql += "cedula=" + entry.getValue()+ ";"; 
+               sql += "cedula='" + entry.getValue()+ "';"; 
             }
         }
         System.out.println(sql);
@@ -174,20 +174,21 @@ public class Controller<T>
     
     public boolean delete(LinkedHashMap<String, Object> hash, MySQLdbConnection db) throws Exception
     {
-        String sql = "DELETE FROM " + getGenericName().toLowerCase() + "WHERE ";
+        String sql = "DELETE FROM " + getGenericName().toLowerCase() + " WHERE ";
         
         for(Entry<String, Object> entry: hash.entrySet()) 
         {
             if(entry.getKey().equals("id"))
             {
-               sql += "id=" + entry.getValue()+ ";"; 
+               sql += "id='" + entry.getValue()+ "';"; 
             }
             
             if(entry.getKey().equals("cedula"))
             {
-               sql += "cedula=" + entry.getValue() + ";"; 
+               sql += "cedula='" + entry.getValue() + "';"; 
             }
         }
+        System.out.println(sql);
         
         return ejecutarTransaccion(sql, db);
     }

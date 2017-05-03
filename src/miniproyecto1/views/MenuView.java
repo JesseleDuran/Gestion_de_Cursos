@@ -164,9 +164,11 @@ public class MenuView extends javax.swing.JFrame {
         admin.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                System.out.println("hola");
+                AdminRegisterView adminRegisterView = new AdminRegisterView(db);
+                adminRegisterView.setVisible(true);
             }
         });
+        registrarMenu.add(admin);
         
         JMenuItem horario = new JMenuItem("Horario");
         horario.addActionListener(new ActionListener(){
@@ -210,13 +212,13 @@ public class MenuView extends javax.swing.JFrame {
         instructor.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                InstructorRegisterView instructorRegisterView = null;
+                InstructorEditView instructorEditView = null;
                 try {
-                    instructorRegisterView = new InstructorRegisterView(db);
+                    instructorEditView = new InstructorEditView(db);
                 } catch (Exception ex) {
                     Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                instructorRegisterView.setVisible(true);
+                instructorEditView.setVisible(true);
             }
         });
         verMenu.add(instructor);
@@ -225,13 +227,14 @@ public class MenuView extends javax.swing.JFrame {
         curso.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                CursoRegisterView cursoRegisterView = null;
+                
                 try {
-                    cursoRegisterView = new CursoRegisterView(db);
+                    CursoEditView cursoEditView = new CursoEditView(db);
+                    cursoEditView.setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                cursoRegisterView.setVisible(true);
+                
             }
         });
         verMenu.add(curso);
@@ -240,16 +243,28 @@ public class MenuView extends javax.swing.JFrame {
         admin.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                System.out.println("hola");
+               AdminEditView adminEditView;
+                try {
+                    adminEditView = new AdminEditView(db);
+                    adminEditView.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
             }
         });
+        verMenu.add(admin);
         
         JMenuItem horario = new JMenuItem("Horario");
         horario.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                HorarioRegisterView horarioRegisterView = new HorarioRegisterView(db);
-                horarioRegisterView.setVisible(true);
+                try {
+                    HorarioEditView horarioEditView = new HorarioEditView(db);
+                    horarioEditView.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         verMenu.add(horario);

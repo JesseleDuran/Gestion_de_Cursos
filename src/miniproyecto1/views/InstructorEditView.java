@@ -5,14 +5,6 @@
  */
 package miniproyecto1.views;
 
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -21,31 +13,27 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
-import miniproyecto1.models.Admin;
-import miniproyecto1.models.Cliente;
+import miniproyecto1.models.Instructor;
 
 /**
  *
  * @author Mota
  */
-public class ClienteEditView extends javax.swing.JFrame {
+public class InstructorEditView extends javax.swing.JFrame {
 
     /**
-     * Creates new form ClienteEditView
+     * Creates new form InstructorEditView
      */
-    public ClienteEditView(MySQLdbConnection db) throws Exception {
-        super("Editar Clientes");
+    public InstructorEditView(MySQLdbConnection db) throws Exception {
+        super("Editar Instructores");
         this.db = db;
         initComponents();
         initButton();
         fillTable();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
     }
 
     /**
@@ -57,14 +45,22 @@ public class ClienteEditView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        editButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         cancelarButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        editButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        editButton.setText("Editar");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
 
         jTable1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -86,7 +82,7 @@ public class ClienteEditView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jLabel3.setText("Lista de Clientes");
+        jLabel3.setText("Lista de Instructores");
 
         cancelarButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         cancelarButton.setText("Cancelar");
@@ -104,14 +100,6 @@ public class ClienteEditView extends javax.swing.JFrame {
             }
         });
 
-        editButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        editButton.setText("Editar");
-        editButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,49 +109,50 @@ public class ClienteEditView extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(20, 20, 20)
                 .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(191, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addContainerGap(192, Short.MAX_VALUE)))
+                .addGap(133, 133, 133)
+                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(230, 230, 230))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 377, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editButtonActionPerformed
+
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (evt.getClickCount() == 2) 
+        if (evt.getClickCount() == 2)
         {
             deleteButton.setEnabled(true);
             editButton.setEnabled(true);
             int fila =jTable1.getSelectedRow();
-            id = (long) jTable1.getValueAt(fila,1);  
+            id = (long) jTable1.getValueAt(fila,2);
             System.out.println(id);
-   
-        }     
+
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
@@ -171,30 +160,26 @@ public class ClienteEditView extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        Controller<Cliente> controller = new Controller<Cliente>(Cliente.class);
+        Controller<Instructor> controller = new Controller<Instructor>(Instructor.class);
         LinkedHashMap<String, Object> hash = new LinkedHashMap<String,Object>();
 
         hash.put("cedula", id);
-        try 
+        try
         {
             if(controller.delete(hash, db) == true)
             {
-                JOptionPane.showMessageDialog(null, "El Participante se ha eliminado correctamente", "Eliminación con éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El Instructor se ha eliminado correctamente", "Eliminación con éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
-            
+
         } catch (Exception ex) {
-            
+
             Logger.getLogger(ClienteEditView.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al Eliminar el participante", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al Eliminar el Instructor", "ERROR", JOptionPane.INFORMATION_MESSAGE);
         }
-   
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editButtonActionPerformed
-
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarButton;
@@ -215,7 +200,7 @@ public class ClienteEditView extends javax.swing.JFrame {
     
     public void fillTable() throws Exception
     {
-        String sql = "SELECT * FROM cliente";
+        String sql = "SELECT * FROM instructor";
         db.open();
         ResultSet resultSet = db.getResultSet(sql);
         jTable1.setModel(buildTableModel(resultSet));
@@ -256,7 +241,4 @@ public class ClienteEditView extends javax.swing.JFrame {
             }
         };
     }
-
 }
-    
-    

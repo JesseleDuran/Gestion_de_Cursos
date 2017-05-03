@@ -149,7 +149,6 @@ public class MenuView extends javax.swing.JFrame {
                 clienteRegisterView.setVisible(true);
             }
         });
-        registrarMenu.add(aula); 
-                
+        registrarMenu.add(aula);            
     }
 }

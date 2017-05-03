@@ -198,7 +198,7 @@ public class MenuView extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) 
             {
                 try {
-                    ClienteEditView clienteEditView = new ClienteEditView(db);
+                    ClienteIndexView clienteEditView = new ClienteIndexView(db);
                     clienteEditView.setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
@@ -212,9 +212,9 @@ public class MenuView extends javax.swing.JFrame {
         instructor.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                InstructorEditView instructorEditView = null;
+                InstructorIndexView instructorEditView = null;
                 try {
-                    instructorEditView = new InstructorEditView(db);
+                    instructorEditView = new InstructorIndexView(db);
                 } catch (Exception ex) {
                     Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -229,7 +229,7 @@ public class MenuView extends javax.swing.JFrame {
             {
                 
                 try {
-                    CursoEditView cursoEditView = new CursoEditView(db);
+                    CursoIndexView cursoEditView = new CursoIndexView(db);
                     cursoEditView.setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,9 +243,9 @@ public class MenuView extends javax.swing.JFrame {
         admin.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-               AdminEditView adminEditView;
+               AdminIndexView adminEditView;
                 try {
-                    adminEditView = new AdminEditView(db);
+                    adminEditView = new AdminIndexView(db);
                     adminEditView.setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
@@ -260,7 +260,7 @@ public class MenuView extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) 
             {
                 try {
-                    HorarioEditView horarioEditView = new HorarioEditView(db);
+                    HorarioIndexView horarioEditView = new HorarioIndexView(db);
                     horarioEditView.setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);

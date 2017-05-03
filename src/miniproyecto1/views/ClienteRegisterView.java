@@ -86,7 +86,8 @@ public class ClienteRegisterView extends javax.swing.JFrame {
         jLabel5.setText("Cédula de Identidad");
 
         aceptarButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        aceptarButton.setText("Aceptar");
+        aceptarButton.setText("Registrar");
+        aceptarButton.setToolTipText("");
         aceptarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarButtonActionPerformed(evt);
@@ -204,7 +205,7 @@ public class ClienteRegisterView extends javax.swing.JFrame {
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,"Error al registrar Cliente","ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Error al registrar Participante","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }    
         }
@@ -297,6 +298,4 @@ public class ClienteRegisterView extends javax.swing.JFrame {
         
         return false;
     }
-
-
 }

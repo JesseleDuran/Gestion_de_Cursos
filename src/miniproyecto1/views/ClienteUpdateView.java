@@ -8,27 +8,28 @@ package miniproyecto1.views;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
-import miniproyecto1.models.Admin;
 import miniproyecto1.models.Cliente;
-import miniproyecto1.utils.Encrypter;
 
 /**
  *
  * @author Mota
  */
-public class AdminRegisterView extends javax.swing.JFrame {
+public class ClienteUpdateView extends javax.swing.JFrame {
 
     /**
-     * Creates new form AdminRegisterView
+     * Creates new form ClienteUpdateView
      */
-    public AdminRegisterView(MySQLdbConnection db) {
-        super("Registrar Instructor");
+    public ClienteUpdateView(MySQLdbConnection db, LinkedHashMap<String, Object> cliente) {
+        super("Actualizar Cliente");
         this.db = db;
+        this.cliente = cliente;
         initComponents();
         restringirTeclas();
+        initJtext();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -41,35 +42,25 @@ public class AdminRegisterView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        apellidoField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         ciField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         aceptarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
+        telefonoField = new javax.swing.JTextField();
         nameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        claveField = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        apellidoField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setText("Apellido");
-
-        apellidoField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        apellidoField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                apellidoFieldActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel1.setText("Nombre");
 
         jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel4.setText("Clave");
+        jLabel4.setText("Teléfono");
 
         ciField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         ciField.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +73,7 @@ public class AdminRegisterView extends javax.swing.JFrame {
         jLabel5.setText("Cédula de Identidad");
 
         aceptarButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        aceptarButton.setText("Registrar");
+        aceptarButton.setText("Actualizar");
         aceptarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarButtonActionPerformed(evt);
@@ -97,6 +88,13 @@ public class AdminRegisterView extends javax.swing.JFrame {
             }
         });
 
+        telefonoField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        telefonoField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                telefonoFieldActionPerformed(evt);
+            }
+        });
+
         nameField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         nameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +103,17 @@ public class AdminRegisterView extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jLabel3.setText("Registrar Administrador");
+        jLabel3.setText("Actualizar Participante");
+
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel2.setText("Apellido");
+
+        apellidoField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        apellidoField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apellidoFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,19 +126,18 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ciField, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(apellidoField, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                        .addComponent(claveField)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ciField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apellidoField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,8 +159,8 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(claveField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -176,20 +183,20 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 LinkedHashMap<String, Object> map = new LinkedHashMap<String,Object>();
 
                 map.put("nombre", nameField.getText());
+                map.put("cedula", Integer.parseInt(ciField.getText()));
                 map.put("apellido", apellidoField.getText());
-                map.put("cedula", Integer.parseInt(ciField.getText())); 
-                map.put("clave", Encrypter.encrypt(claveField.getText()));// aqui Encripta!
+                map.put("telefono", telefonoField.getText());
 
-                Controller<Admin> controller = new Controller<Admin>(Admin.class);
+                Controller<Cliente> controller = new Controller<Cliente>(Cliente.class);
 
-                if(controller.insert(map, db) == true)
+                if(controller.edit(map, db) == true)
                 {
                     dispose();
-                    JOptionPane.showMessageDialog(null, "El Participante se ha registrado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El Participante se ha actualizado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,"Error al registrar Cliente","ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Error al actualizar Participante","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -204,6 +211,10 @@ public class AdminRegisterView extends javax.swing.JFrame {
         dispose() ;
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
+    private void telefonoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_telefonoFieldActionPerformed
+
     private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameFieldActionPerformed
@@ -212,23 +223,33 @@ public class AdminRegisterView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_apellidoFieldActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarButton;
     private javax.swing.JTextField apellidoField;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JTextField ciField;
-    private javax.swing.JPasswordField claveField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField nameField;
+    private javax.swing.JTextField telefonoField;
     // End of variables declaration//GEN-END:variables
-    private MySQLdbConnection db;
     private KeyListener eventosDeTecla;
+    private MySQLdbConnection db;
+    private LinkedHashMap<String, Object> cliente;
+    
+    private void initJtext()
+    {
+
+        nameField.setText((String) cliente.get("1"));
+        ciField.setText(Long.toString((long) cliente.get("2")));
+        apellidoField.setText((String) cliente.get("3"));
+        telefonoField.setText((String) cliente.get("4"));
+    
+    }
     
     private void restringirTeclas()
     {
@@ -252,7 +273,8 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 
             }
         };
-        ciField.addKeyListener(eventosDeTecla);
+        ciField.addKeyListener(eventosDeTecla);//poner el resto
+        telefonoField.addKeyListener(eventosDeTecla);   
     }
     
     public boolean validaciones()
@@ -265,23 +287,21 @@ public class AdminRegisterView extends javax.swing.JFrame {
         
         if(apellidoField.getText().isEmpty() == true )
         {
-                JOptionPane.showMessageDialog(null,"Error:Debe ingresar un apellido","ERROR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Error: Debe ingresar un apellido","ERROR",JOptionPane.ERROR_MESSAGE);
                 return true;
         }
-        
         if(ciField.getText().isEmpty() == true )
         {
-                JOptionPane.showMessageDialog(null,"Error: Debe ingresar una cédula","ERROR",JOptionPane.ERROR_MESSAGE);
-                return true;
-        }    
-        
-        if(claveField.getText().isEmpty() == true )
-        {
-                JOptionPane.showMessageDialog(null,"Error:Debe ingresar una clave","ERROR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Error: Debe ingresar una cedula","ERROR",JOptionPane.ERROR_MESSAGE);
                 return true;
         }
+            
+       if(telefonoField.getText().isEmpty() == true )
+        {
+                JOptionPane.showMessageDialog(null,"Error: Debe ingresar un telefono","ERROR",JOptionPane.ERROR_MESSAGE);
+                return true;
+        }          
         
         return false;
     }
-
 }

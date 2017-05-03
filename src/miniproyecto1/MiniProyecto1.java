@@ -36,8 +36,14 @@ public class MiniProyecto1 {
     {
         MySQLdbConnection con = new MySQLdbConnection("cursos","jessele","6221");
         
-        /*Controller<Horario> horario = new Controller<Horario>(Horario.class);
-        List<LinkedHashMap<String, Object>> list = instructor.getAll(con); //lista de resultados
+        /*Controller<Instructor> cliente = new Controller<Instructor>(Instructor.class);
+        LinkedHashMap<String, Object> hor = new LinkedHashMap<String, Object>();
+        LinkedHashMap<String, Object> or = new LinkedHashMap<String, Object>();
+        hor.put("cedula", 16222333);
+        or= cliente.findOne(hor, con);
+        System.out.println(or);*/
+        
+        /*List<LinkedHashMap<String, Object>> list = instructor.getAll(con); //lista de resultados
         
         for (Iterator<LinkedHashMap<String, Object>> i = list.iterator(); i.hasNext();) 
         {

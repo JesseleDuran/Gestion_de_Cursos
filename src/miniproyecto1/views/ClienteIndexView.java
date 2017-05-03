@@ -5,6 +5,14 @@
  */
 package miniproyecto1.views;
 
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -13,27 +21,32 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
 import miniproyecto1.models.Admin;
+import miniproyecto1.models.Cliente;
+import miniproyecto1.models.Instructor;
 
 /**
  *
  * @author Mota
  */
-public class AdminEditView extends javax.swing.JFrame {
+public class ClienteIndexView extends javax.swing.JFrame {
 
     /**
-     * Creates new form AdminEditView
+     * Creates new form ClienteEditView
      */
-    public AdminEditView(MySQLdbConnection db) throws Exception {
-        super("Editar Administradores");
+    public ClienteIndexView(MySQLdbConnection db) throws Exception {
+        super("Editar Clientes");
         this.db = db;
         initComponents();
         initButton();
         fillTable();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
     }
 
     /**
@@ -45,14 +58,36 @@ public class AdminEditView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cancelarButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        cancelarButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        jLabel3.setText("Lista de Clientes");
 
         cancelarButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         cancelarButton.setText("Cancelar");
@@ -78,105 +113,101 @@ public class AdminEditView extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jLabel3.setText("Lista de Administradores");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(141, 141, 141))
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75)
-                        .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(191, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addContainerGap(192, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 377, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if (evt.getClickCount() == 2) 
+        {
+            deleteButton.setEnabled(true);
+            editButton.setEnabled(true);
+            int fila =jTable1.getSelectedRow();
+            id = (long) jTable1.getValueAt(fila,1);  
+            System.out.println(id);
+   
+        }     
+    }//GEN-LAST:event_jTable1MouseClicked
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
         dispose() ;
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        Controller<Admin> controller = new Controller<Admin>(Admin.class);
+        Controller<Cliente> controller = new Controller<Cliente>(Cliente.class);
         LinkedHashMap<String, Object> hash = new LinkedHashMap<String,Object>();
 
         hash.put("cedula", id);
-        try
+        try 
         {
             if(controller.delete(hash, db) == true)
             {
-                JOptionPane.showMessageDialog(null, "El Administrador se ha eliminado correctamente", "Eliminación con éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El Participante se ha eliminado correctamente", "Eliminación con éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
-
+            
         } catch (Exception ex) {
-
-            Logger.getLogger(ClienteEditView.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al Eliminar el Administrador", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+            
+            Logger.getLogger(ClienteIndexView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al Eliminar el participante", "ERROR", JOptionPane.INFORMATION_MESSAGE);
         }
-
+   
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editButtonActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (evt.getClickCount() == 2)
-        {
-            deleteButton.setEnabled(true);
-            editButton.setEnabled(true);
-            int fila =jTable1.getSelectedRow();
-            id = (long) jTable1.getValueAt(fila,2);
-            System.out.println(id);
-
+        try {
+            Controller<Cliente> cliente = new Controller<Cliente>(Cliente.class);
+            LinkedHashMap<String, Object> actual = new LinkedHashMap<String, Object>();
+            LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
+            
+            actual.put("cedula", id);
+            result = cliente.findOne(actual, db);
+            
+            ClienteUpdateView updateView = new ClienteUpdateView(db, result);
+            updateView.setVisible(true);
+            dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteIndexView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_editButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -198,7 +229,7 @@ public class AdminEditView extends javax.swing.JFrame {
     
     public void fillTable() throws Exception
     {
-        String sql = "SELECT * FROM admin";
+        String sql = "SELECT * FROM cliente";
         db.open();
         ResultSet resultSet = db.getResultSet(sql);
         jTable1.setModel(buildTableModel(resultSet));
@@ -241,3 +272,5 @@ public class AdminEditView extends javax.swing.JFrame {
     }
 
 }
+    
+    

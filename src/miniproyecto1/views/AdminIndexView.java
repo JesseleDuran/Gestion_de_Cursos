@@ -16,20 +16,20 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
-import miniproyecto1.models.Horario;
+import miniproyecto1.models.Admin;
 
 /**
  *
  * @author Mota
  */
-public class HorarioEditView extends javax.swing.JFrame {
+public class AdminIndexView extends javax.swing.JFrame {
 
     /**
-     * Creates new form HorarioEditView
+     * Creates new form AdminEditView
      */
-    public HorarioEditView(MySQLdbConnection db) throws Exception {
-        super("Editar Horarios");
-         this.db = db;
+    public AdminIndexView(MySQLdbConnection db) throws Exception {
+        super("Editar Administradores");
+        this.db = db;
         initComponents();
         initButton();
         fillTable();
@@ -47,7 +47,6 @@ public class HorarioEditView extends javax.swing.JFrame {
 
         cancelarButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -67,14 +66,6 @@ public class HorarioEditView extends javax.swing.JFrame {
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
-            }
-        });
-
-        editButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        editButton.setText("Editar");
-        editButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
             }
         });
 
@@ -98,43 +89,39 @@ public class HorarioEditView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jLabel3.setText("Lista de Horarios");
+        jLabel3.setText("Lista de Administradores");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(141, 141, 141))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(20, 20, 20)
-                            .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(68, 68, 68)
-                            .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(205, 205, 205)
-                        .addComponent(jLabel3)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -145,38 +132,34 @@ public class HorarioEditView extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        Controller<Horario> controller = new Controller<Horario>(Horario.class);
+        Controller<Admin> controller = new Controller<Admin>(Admin.class);
         LinkedHashMap<String, Object> hash = new LinkedHashMap<String,Object>();
 
-        hash.put("id", id);
+        hash.put("cedula", id);
         try
         {
             if(controller.delete(hash, db) == true)
             {
-                JOptionPane.showMessageDialog(null, "El Horario se ha eliminado correctamente", "Eliminación con éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El Administrador se ha eliminado correctamente", "Eliminación con éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
 
         } catch (Exception ex) {
 
-            Logger.getLogger(ClienteEditView.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al Eliminar el Horario", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(ClienteIndexView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al Eliminar el Administrador", "ERROR", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editButtonActionPerformed
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (evt.getClickCount() == 2)
         {
             deleteButton.setEnabled(true);
-            editButton.setEnabled(true);
+            //editButton.setEnabled(true);
             int fila =jTable1.getSelectedRow();
-            id = (int) jTable1.getValueAt(fila,0);
+            id = (long) jTable1.getValueAt(fila,2);
             System.out.println(id);
-
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -184,29 +167,29 @@ public class HorarioEditView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarButton;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
     private MySQLdbConnection db;
-    private Integer id;
+    private long id;
     
     public void initButton()
     {
         deleteButton.setEnabled(false);
-        editButton.setEnabled(false);
+        //editButton.setEnabled(false);
     }
     
     public void fillTable() throws Exception
     {
-        String sql = "SELECT * FROM horario";
+        String sql = "SELECT * FROM admin";
         db.open();
         ResultSet resultSet = db.getResultSet(sql);
         jTable1.setModel(buildTableModel(resultSet));
         db.close();
     }
-
+ 
+    
     public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException 
     {
         ResultSetMetaData metaData = rs.getMetaData();
@@ -232,7 +215,6 @@ public class HorarioEditView extends javax.swing.JFrame {
         }
         System.out.println(data);
 
- 
         return new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int col) {

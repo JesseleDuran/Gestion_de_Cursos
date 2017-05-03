@@ -8,6 +8,7 @@ package miniproyecto1.controllers;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,9 +35,42 @@ public class Controller<T>
         return type.getSimpleName();
     }
     
-    public void findOne()
+    public LinkedHashMap<String, Object> findOne(LinkedHashMap<String, Object> hash, MySQLdbConnection db) throws Exception
     {
-        //SELECT * FROM cliente WHERE nombre='Jessele'AND cedula='25696458';
+        String sql = "SELECT * FROM " + getGenericName().toLowerCase() + " WHERE ";
+        for(Entry<String, Object> entry: hash.entrySet()) 
+        {
+            if(entry.getKey().equals("id"))
+            {
+               sql += "id='" + entry.getValue()+ "';"; 
+            }
+            
+            if(entry.getKey().equals("cedula"))
+            {
+               sql += "cedula='" + entry.getValue() + "';"; 
+            }
+        }
+        System.out.println(sql);
+        Object value;
+        db.open();
+        ResultSet resultSet = db.getResultSet(sql);
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
+        
+        while(resultSet.next())
+        {
+            for (int i = 1; i <= columnsNumber; i++) 
+            {
+                value = resultSet.getObject(i);
+                result.put(Integer.toString(i), value);
+                System.out.println(value);
+            }   
+        }
+        db.close();
+        
+        return result;
+   
     }
     
     /**
@@ -135,7 +169,7 @@ public class Controller<T>
     
     public boolean edit(LinkedHashMap<String, Object> hash, MySQLdbConnection db) throws Exception
     {
-        String sql = "UPDATE " + getGenericName().toLowerCase() + "SET ";
+        String sql = "UPDATE " + getGenericName().toLowerCase() + " SET ";
         int i = 0;
         
         for(Entry<String, Object> entry: hash.entrySet()) 
@@ -144,13 +178,13 @@ public class Controller<T>
             if(hash.size() == i)
             {
                 sql += entry.getKey() + "=";
-                sql += entry.getKey() + " WHERE";
+                sql += entry.getKey() + " WHERE ";
                
             }
             else
             {
                sql += entry.getKey() + "=";// Si no es el último
-               sql += entry.getValue() + ",";
+               sql += "'"+ entry.getValue() + "',";
                 
             }
             

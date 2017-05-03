@@ -5,12 +5,17 @@
  */
 package miniproyecto1.views;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
+import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
+import miniproyecto1.models.Horario;
+import miniproyecto1.utils.PDFGenerator;
 
 /**
  *
@@ -26,6 +31,7 @@ public class MenuView extends javax.swing.JFrame {
         initComponents();
         this.db = db;
         initButtons();
+
     }
 
     /**
@@ -40,6 +46,8 @@ public class MenuView extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         registrarMenu = new javax.swing.JMenu();
         verMenu = new javax.swing.JMenu();
+        reportesMenu = new javax.swing.JMenu();
+        horariosReporte = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,6 +60,18 @@ public class MenuView extends javax.swing.JFrame {
         verMenu.setText("Ver");
         verMenu.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         menuBar.add(verMenu);
+
+        reportesMenu.setText("Reportes");
+
+        horariosReporte.setText("Horarios");
+        horariosReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                horariosReporteActionPerformed(evt);
+            }
+        });
+        reportesMenu.add(horariosReporte);
+
+        menuBar.add(reportesMenu);
 
         setJMenuBar(menuBar);
 
@@ -69,10 +89,26 @@ public class MenuView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void horariosReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horariosReporteActionPerformed
+        // TODO add your handling code here:
+        Controller<Horario> ctrl = new Controller<Horario>(Horario.class);
+        
+        String result;
+        try {
+            result = PDFGenerator.createPDFFromHashMapList(this, ctrl.getAll(db));
+            Desktop.getDesktop().open(new File(result));
+        } catch (Exception ex) {
+            //TODO Añadir error ! 
+        }
+        
+    }//GEN-LAST:event_horariosReporteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem horariosReporte;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu registrarMenu;
+    private javax.swing.JMenu reportesMenu;
     private javax.swing.JMenu verMenu;
     // End of variables declaration//GEN-END:variables
     MySQLdbConnection db;

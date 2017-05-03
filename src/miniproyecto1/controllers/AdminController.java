@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import miniproyecto1.dbConnections.MySQLdbConnection;
 import miniproyecto1.models.Admin;
+import miniproyecto1.utils.Encrypter;
 
 /**
  *
@@ -22,9 +23,11 @@ public class AdminController
     
     public int auth(int cedula, String pass, MySQLdbConnection db) throws SQLException, Exception
     {
+        String encryptPass = Encrypter.encrypt(pass);
+        System.out.println(encryptPass);
         int count = 0;
         String sql = "SELECT COUNT(*) AS total FROM admin WHERE cedula='"
-                +cedula+"' AND clave='"+pass+"';";
+                +cedula+"' AND clave='"+encryptPass+"';";
         db.open();
         ResultSet rs = db.getResultSet(sql);
         

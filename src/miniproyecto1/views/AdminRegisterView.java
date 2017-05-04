@@ -175,8 +175,8 @@ public class AdminRegisterView extends javax.swing.JFrame {
             {
                 LinkedHashMap<String, Object> map = new LinkedHashMap<String,Object>();
 
-                map.put("nombre", nameField.getText());
-                map.put("apellido", apellidoField.getText());
+                map.put("nombre", nameField.getText().toUpperCase());
+                map.put("apellido", apellidoField.getText().toUpperCase());
                 map.put("cedula", Integer.parseInt(ciField.getText())); 
                 map.put("clave", Encrypter.encrypt(claveField.getText()));// aqui Encripta!
 
@@ -229,6 +229,7 @@ public class AdminRegisterView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private MySQLdbConnection db;
     private KeyListener eventosDeTecla;
+     private KeyListener eventosDeTeclaOnlyLetters;
     
     private void restringirTeclas()
     {
@@ -252,6 +253,31 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 
             }
         };
+        eventosDeTeclaOnlyLetters = new KeyListener() 
+        {
+            @Override
+            public void keyTyped(KeyEvent ke) 
+            {
+               char caracter = ke.getKeyChar();
+                if((Character.isLetter(caracter)) == false )
+                {
+                   ke.consume();   
+                }   
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                
+            }
+        };
+        
+        apellidoField.addKeyListener(eventosDeTeclaOnlyLetters);       
+        nameField.addKeyListener(eventosDeTeclaOnlyLetters);
         ciField.addKeyListener(eventosDeTecla);
     }
     

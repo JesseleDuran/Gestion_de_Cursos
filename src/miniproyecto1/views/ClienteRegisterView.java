@@ -191,9 +191,9 @@ public class ClienteRegisterView extends javax.swing.JFrame {
             {
                 LinkedHashMap<String, Object> map = new LinkedHashMap<String,Object>();
            
-                map.put("nombre", nameField.getText());
+                map.put("nombre", nameField.getText().toUpperCase());
                 map.put("cedula", Integer.parseInt(ciField.getText()));
-                map.put("apellido", apellidoField.getText());
+                map.put("apellido", apellidoField.getText().toUpperCase());
                 map.put("telefono", telefonoField.getText());
             
                 Controller<Cliente> controller = new Controller<Cliente>(Cliente.class);
@@ -243,6 +243,7 @@ public class ClienteRegisterView extends javax.swing.JFrame {
     private javax.swing.JTextField telefonoField;
     // End of variables declaration//GEN-END:variables
     private KeyListener eventosDeTecla;
+    private KeyListener eventosDeTeclaOnlyLetters;
     MySQLdbConnection db;
     
     private void restringirTeclas()
@@ -267,6 +268,34 @@ public class ClienteRegisterView extends javax.swing.JFrame {
                 
             }
         };
+        
+        eventosDeTeclaOnlyLetters = new KeyListener() 
+        {
+            @Override
+            public void keyTyped(KeyEvent ke) 
+            {
+               char caracter = ke.getKeyChar();
+                if((Character.isLetter(caracter)) == false )
+                {
+                   ke.consume();   
+                }
+                   
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                
+            }
+        };
+        
+        apellidoField.addKeyListener(eventosDeTeclaOnlyLetters);       
+        nameField.addKeyListener(eventosDeTeclaOnlyLetters);
+    
         ciField.addKeyListener(eventosDeTecla);//poner el resto
         telefonoField.addKeyListener(eventosDeTecla);   
     }

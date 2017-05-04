@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
-import miniproyecto1.models.Cliente;
 import miniproyecto1.models.Curso;
 
 /**
@@ -157,6 +156,11 @@ public class CursoIndexView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "El Curso se ha eliminado correctamente", "Eliminación con éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "No se puede eliminar este curso, hay participantes inscritos en él", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
 
         } catch (Exception ex) {
 
@@ -189,7 +193,7 @@ public class CursoIndexView extends javax.swing.JFrame {
             deleteButton.setEnabled(true);
             editButton.setEnabled(true);
             int fila =jTable1.getSelectedRow();
-            id = (int) jTable1.getValueAt(fila,0);
+            id =  (Integer) jTable1.getValueAt(fila,0);
             System.out.println(id);
 
         }

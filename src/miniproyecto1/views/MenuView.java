@@ -30,7 +30,6 @@ import miniproyecto1.utils.PDFGenerator;
  * @author Mota
  */
 public class MenuView extends javax.swing.JFrame {
-
     /**
      * Creates new form MenuView
      */
@@ -65,6 +64,8 @@ public class MenuView extends javax.swing.JFrame {
         horariosReporte = new javax.swing.JMenuItem();
         aulasReporte = new javax.swing.JMenuItem();
         cursosReporte = new javax.swing.JMenuItem();
+        cantidadInscriosReporte = new javax.swing.JMenuItem();
+        instructoresReporte = new javax.swing.JMenuItem();
         cerrrarSesionMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -138,6 +139,22 @@ public class MenuView extends javax.swing.JFrame {
             }
         });
         reportesMenu.add(cursosReporte);
+
+        cantidadInscriosReporte.setText("Cantidad de Inscritos por Curso");
+        cantidadInscriosReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadInscriosReporteActionPerformed(evt);
+            }
+        });
+        reportesMenu.add(cantidadInscriosReporte);
+
+        instructoresReporte.setText("Instructores con su carga de Cursos");
+        instructoresReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                instructoresReporteActionPerformed(evt);
+            }
+        });
+        reportesMenu.add(instructoresReporte);
 
         menuBar.add(reportesMenu);
 
@@ -255,12 +272,40 @@ public class MenuView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_registrarInscripcionButtonActionPerformed
 
+    private void cantidadInscriosReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadInscriosReporteActionPerformed
+        // TODO add your handling code here:
+        ReportesController reporte = new ReportesController();
+        
+        String result;
+        try {
+            result = PDFGenerator.createPDFFromHashMapList(this, reporte.inscritosPorCurso(db), "Cantidad de Inscritos por Curso");
+            Desktop.getDesktop().open(new File(result));
+        } catch (Exception ex) {
+            //TODO Añadir error ! 
+        }
+    }//GEN-LAST:event_cantidadInscriosReporteActionPerformed
+
+    private void instructoresReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instructoresReporteActionPerformed
+        // TODO add your handling code here:
+        ReportesController reporte = new ReportesController();
+        
+        String result;
+        try {
+            result = PDFGenerator.createPDFFromHashMapList(this, reporte.instructoresPorCurso(db), "Profesores con su curso");
+            Desktop.getDesktop().open(new File(result));
+        } catch (Exception ex) {
+            //TODO Añadir error ! 
+        }
+    }//GEN-LAST:event_instructoresReporteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aulasReporte;
+    private javax.swing.JMenuItem cantidadInscriosReporte;
     private javax.swing.JMenu cerrrarSesionMenu;
     private javax.swing.JMenuItem cursosReporte;
     private javax.swing.JMenuItem horariosReporte;
+    private javax.swing.JMenuItem instructoresReporte;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -290,7 +335,25 @@ public class MenuView extends javax.swing.JFrame {
                 clienteRegisterView.setVisible(true);
             }
         });
-        registrarMenu.add(participante); 
+        registrarMenu.add(participante);
+        
+        JMenuItem curso = new JMenuItem("Curso");
+        curso.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                
+                try {
+                    CursoIndexView cursoEditView = new CursoIndexView(db);
+                    cursoEditView.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        });
+        verMenu.add(curso);
+        
+        
         
         JMenuItem instructor = new JMenuItem("Instructor");
         instructor.addActionListener(new ActionListener(){
@@ -307,20 +370,7 @@ public class MenuView extends javax.swing.JFrame {
         });
         registrarMenu.add(instructor);
         
-        JMenuItem curso = new JMenuItem("Curso");
-        curso.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) 
-            {
-                CursoRegisterView cursoRegisterView = null;
-                try {
-                    cursoRegisterView = new CursoRegisterView(db);
-                } catch (Exception ex) {
-                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                cursoRegisterView.setVisible(true);
-            }
-        });
-        registrarMenu.add(curso);
+        
         
         JMenuItem admin = new JMenuItem("Administrador");
         admin.addActionListener(new ActionListener(){
@@ -346,8 +396,12 @@ public class MenuView extends javax.swing.JFrame {
         aula.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                ClienteRegisterView clienteRegisterView = new ClienteRegisterView(db);
-                clienteRegisterView.setVisible(true);
+                try {
+                    AulaRegisterView RegisterView = new AulaRegisterView(db);
+                    RegisterView.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         registrarMenu.add(aula);            
@@ -385,21 +439,7 @@ public class MenuView extends javax.swing.JFrame {
         });
         verMenu.add(instructor);
         
-        JMenuItem curso = new JMenuItem("Curso");
-        curso.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) 
-            {
-                
-                try {
-                    CursoIndexView cursoEditView = new CursoIndexView(db);
-                    cursoEditView.setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-            }
-        });
-        verMenu.add(curso);
+        
         
         JMenuItem admin = new JMenuItem("Administrador");
         admin.addActionListener(new ActionListener(){
@@ -435,8 +475,12 @@ public class MenuView extends javax.swing.JFrame {
         aula.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
-                ClienteRegisterView clienteRegisterView = new ClienteRegisterView(db);
-                clienteRegisterView.setVisible(true);
+                try {
+                    AulaIndexView indexView = new AulaIndexView(db);
+                    indexView.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         verMenu.add(aula);            
@@ -486,7 +530,5 @@ public class MenuView extends javax.swing.JFrame {
             }
         };
     }
-    
-    
-    
+  
 }

@@ -49,6 +49,11 @@ public class Controller<T>
             {
                sql += "cedula='" + entry.getValue() + "';"; 
             }
+            
+            if(entry.getKey().equals("titulo"))
+            {
+               sql += "titulo='" + entry.getValue() + "';"; 
+            }
         }
         System.out.println(sql);
         Object value;
@@ -70,7 +75,6 @@ public class Controller<T>
         db.close();
         
         return result;
-   
     }
     
     /**
@@ -95,11 +99,9 @@ public class Controller<T>
         {
             mMap = new LinkedHashMap();
             for (int i = 1; i <= columnsNumber; i++) 
-            {
-                
+            {            
                 String columnValue = resultSet.getString(i);
                 mMap.put(rsmd.getColumnName(i),columnValue);
- 
             }
             list.add(mMap);
         }
@@ -108,6 +110,10 @@ public class Controller<T>
         
         return list;
     }
+    
+    
+    
+    
     
     public int getLast(MySQLdbConnection db) throws Exception
     {
@@ -119,6 +125,22 @@ public class Controller<T>
         while(rs.next())
         {  
             lastValue = rs.getString("id");
+            System.out.println(lastValue);
+        }
+        
+        return Integer.parseInt(lastValue);
+    }
+    
+    public int getLastCI(MySQLdbConnection db) throws Exception
+    {
+        String lastValue = null;
+        String sql = "SELECT * FROM " + getGenericName().toLowerCase() + ";";
+        db.open();
+        ResultSet rs = db.getResultSet(sql);
+
+        while(rs.next())
+        {  
+            lastValue = rs.getString("cedula");
             System.out.println(lastValue);
         }
         
@@ -204,6 +226,52 @@ public class Controller<T>
         System.out.println(sql);
        return ejecutarTransaccion(sql, db);
     }
+    
+    public boolean editCI(LinkedHashMap<String, Object> hash, MySQLdbConnection db, Integer id, long lasValue) throws Exception
+    {
+        String sql = "UPDATE " + getGenericName().toLowerCase() + " SET ";
+        int i = 0;
+        
+        for(Entry<String, Object> entry: hash.entrySet()) 
+        {
+            i++;
+            if(hash.size() == i)
+            {
+                sql += entry.getKey() + "=";
+                sql += "'"+ entry.getValue() + "' WHERE ";
+               
+            }
+            else
+            {
+               sql += entry.getKey() + "=";// Si no es el último
+               sql += "'"+ entry.getValue() + "',";
+                
+            }
+            
+        }
+
+        for(Entry<String, Object> entry: hash.entrySet()) 
+        {
+      
+            if(entry.getKey().equals("cedula"))
+            {
+               sql += "cedula='" + lasValue + "';"; 
+            }
+        }
+        System.out.println(sql);
+       return ejecutarTransaccion(sql, db);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     public boolean delete(LinkedHashMap<String, Object> hash, MySQLdbConnection db) throws Exception
     {

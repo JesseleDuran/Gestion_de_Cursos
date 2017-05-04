@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
@@ -182,14 +184,15 @@ public class ClienteUpdateView extends javax.swing.JFrame {
             {
                 LinkedHashMap<String, Object> map = new LinkedHashMap<String,Object>();
 
-                map.put("nombre", nameField.getText());
+                map.put("nombre", nameField.getText().toUpperCase());
                 map.put("cedula", Integer.parseInt(ciField.getText()));
-                map.put("apellido", apellidoField.getText());
+                map.put("apellido", apellidoField.getText().toUpperCase());
                 map.put("telefono", telefonoField.getText());
 
                 Controller<Cliente> controller = new Controller<Cliente>(Cliente.class);
+                
 
-                if(controller.edit(map, db, 0) == true)
+                if(controller.editCI(map, db, 0, (long) cliente.get("2")) == true)
                 {
                     dispose();
                     JOptionPane.showMessageDialog(null, "El Participante se ha actualizado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -202,6 +205,7 @@ public class ClienteUpdateView extends javax.swing.JFrame {
         }
         catch(Exception e)
         {
+            Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, e);
 
             JOptionPane.showMessageDialog(null,"Error: "+e.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
@@ -240,6 +244,7 @@ public class ClienteUpdateView extends javax.swing.JFrame {
     private KeyListener eventosDeTecla;
     private MySQLdbConnection db;
     private LinkedHashMap<String, Object> cliente;
+    private KeyListener eventosDeTeclaOnlyLetters;
     
     private void initJtext()
     {
@@ -273,6 +278,34 @@ public class ClienteUpdateView extends javax.swing.JFrame {
                 
             }
         };
+        
+        eventosDeTeclaOnlyLetters = new KeyListener() 
+        {
+            @Override
+            public void keyTyped(KeyEvent ke) 
+            {
+               char caracter = ke.getKeyChar();
+                if((Character.isLetter(caracter)) == false )
+                {
+                   ke.consume();   
+                }
+                   
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                
+            }
+        };
+        
+        apellidoField.addKeyListener(eventosDeTeclaOnlyLetters);       
+        nameField.addKeyListener(eventosDeTeclaOnlyLetters);
+    
         ciField.addKeyListener(eventosDeTecla);//poner el resto
         telefonoField.addKeyListener(eventosDeTecla);   
     }

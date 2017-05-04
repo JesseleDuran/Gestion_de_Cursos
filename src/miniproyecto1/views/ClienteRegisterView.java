@@ -8,8 +8,6 @@ package miniproyecto1.views;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import miniproyecto1.controllers.Controller;
@@ -18,7 +16,7 @@ import miniproyecto1.models.Cliente;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class ClienteRegisterView extends javax.swing.JFrame {
 

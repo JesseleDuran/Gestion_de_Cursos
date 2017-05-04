@@ -7,11 +7,13 @@ package miniproyecto1.models;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class Aula_curso 
 {
     protected int id_aula;
     protected int id_curso;
+    
+    
     
 }

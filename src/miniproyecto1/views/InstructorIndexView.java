@@ -20,7 +20,7 @@ import miniproyecto1.models.Instructor;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class InstructorIndexView extends javax.swing.JFrame {
 

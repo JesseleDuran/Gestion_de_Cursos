@@ -15,7 +15,7 @@ import miniproyecto1.dbConnections.MySQLdbConnection;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class ReportesController 
 {
@@ -84,10 +84,8 @@ public class ReportesController
         db.close();
         
         return list;
-        
-        
+     
     }
-    
     
     public List<LinkedHashMap<String, Object>> instructoresPorCurso(MySQLdbConnection db) throws Exception
     {
@@ -121,10 +119,7 @@ public class ReportesController
         db.close();
         
         return list;
-        
-        
+                
     }
-    
-    
-    
+   
 }

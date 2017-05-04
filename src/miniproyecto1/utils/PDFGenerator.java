@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
- * @author Slaush
+ * @author Jessele Durán
  */
 public class PDFGenerator 
 {

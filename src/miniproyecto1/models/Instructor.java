@@ -5,16 +5,11 @@
  */
 package miniproyecto1.models;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
-public class Instructor extends Model
+public class Instructor
 {
     protected String nvl_formacion;
     protected String nombre;
@@ -70,32 +65,5 @@ public class Instructor extends Model
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    public Instructor(ResultSet rs) {
-        super(rs);
-    }
-
-    @Override
-    public void parsear(ResultSet rs) {
-        try 
-        {
-            correo = rs.getString("correo");
-            nombre = rs.getString("nombre");
-            apellido = rs.getString("apellido");
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(Instructor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-   
-    
-    
-
-    /*@Override
-    public static String getTableName() {
-        return "instructor";
-    }*/
     
 }

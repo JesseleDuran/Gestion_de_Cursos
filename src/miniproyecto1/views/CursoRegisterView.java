@@ -7,28 +7,18 @@ package miniproyecto1.views;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.ListCellRenderer;
-import javax.swing.ListSelectionModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
-import miniproyecto1.models.Aula;
-import miniproyecto1.models.Aula_curso;
 import miniproyecto1.models.Curso;
-import miniproyecto1.models.Curso_horario;
-import miniproyecto1.models.Horario;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class CursoRegisterView extends javax.swing.JFrame {
 

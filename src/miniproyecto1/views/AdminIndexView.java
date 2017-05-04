@@ -20,7 +20,7 @@ import miniproyecto1.models.Admin;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class AdminIndexView extends javax.swing.JFrame {
 
@@ -177,7 +177,6 @@ public class AdminIndexView extends javax.swing.JFrame {
     public void initButton()
     {
         deleteButton.setEnabled(false);
-        //editButton.setEnabled(false);
     }
     
     public void fillTable() throws Exception
@@ -189,7 +188,6 @@ public class AdminIndexView extends javax.swing.JFrame {
         db.close();
     }
  
-    
     public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException 
     {
         ResultSetMetaData metaData = rs.getMetaData();
@@ -222,5 +220,4 @@ public class AdminIndexView extends javax.swing.JFrame {
             }
         };
     }
-
 }

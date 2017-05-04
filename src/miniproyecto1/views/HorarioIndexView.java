@@ -16,12 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
-import miniproyecto1.models.Curso;
 import miniproyecto1.models.Horario;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class HorarioIndexView extends javax.swing.JFrame {
 

@@ -17,7 +17,7 @@ import miniproyecto1.utils.Encrypter;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class AdminRegisterView extends javax.swing.JFrame {
 
@@ -212,7 +212,6 @@ public class AdminRegisterView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_apellidoFieldActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarButton;

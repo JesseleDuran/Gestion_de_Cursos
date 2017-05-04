@@ -8,7 +8,6 @@ package miniproyecto1.controllers;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,7 +16,7 @@ import miniproyecto1.dbConnections.MySQLdbConnection;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class Controller<T> 
 {   
@@ -26,8 +25,7 @@ public class Controller<T>
     public Controller(Class<T> t)
     {
         //Esto Consigue la Clase del Tipo Generico!
-        this.type = t;
-        
+        this.type = t;   
     }
     
     protected String getGenericName()
@@ -76,13 +74,7 @@ public class Controller<T>
         
         return result;
     }
-    
-    /**
 
-     * @param nombre_tabla
-     * @param db
-     * @return
-     */
     public List<LinkedHashMap<String, Object>> getAll(MySQLdbConnection db) throws SQLException, Exception
     {
         LinkedHashMap<String, Object> mMap = new LinkedHashMap();//hashmap
@@ -110,13 +102,10 @@ public class Controller<T>
         
         return list;
     }
-    
-    
-    
-    
-    
+
     public int getLast(MySQLdbConnection db) throws Exception
     {
+        int result = 0;
         String lastValue = null;
         String sql = "SELECT * FROM " + getGenericName().toLowerCase() + ";";
         db.open();
@@ -127,8 +116,12 @@ public class Controller<T>
             lastValue = rs.getString("id");
             System.out.println(lastValue);
         }
-        
-        return Integer.parseInt(lastValue);
+        if(lastValue != null)
+        {
+           result = Integer.parseInt(lastValue);
+        }
+          
+        return result;
     }
     
     public int getLastCI(MySQLdbConnection db) throws Exception
@@ -262,17 +255,6 @@ public class Controller<T>
        return ejecutarTransaccion(sql, db);
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public boolean delete(LinkedHashMap<String, Object> hash, MySQLdbConnection db) throws Exception
     {
         String sql = "DELETE FROM " + getGenericName().toLowerCase() + " WHERE ";
@@ -304,13 +286,11 @@ public class Controller<T>
         }
         catch(Exception e)
         {
-            //System.out.println("No se pudo realizar transaccion "+ getGenericName().toLowerCase());
+            System.out.println("No se pudo realizar transaccion "+ getGenericName().toLowerCase());
             e.printStackTrace();
             return false;
         }
-        
-        return true;
-         
+        return true;    
     }
     
     public int findHorario(String intervalo, MySQLdbConnection db) throws Exception
@@ -332,8 +312,6 @@ public class Controller<T>
             System.out.println(count);
         }
         db.close();    
-        return count;
-        
+        return count;   
     }
-  
 }

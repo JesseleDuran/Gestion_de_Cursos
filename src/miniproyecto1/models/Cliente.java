@@ -5,11 +5,9 @@
  */
 package miniproyecto1.models;
 
-import java.sql.ResultSet;
-
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class Cliente 
 {
@@ -65,6 +63,5 @@ public class Cliente
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
- 
-    
+
 }

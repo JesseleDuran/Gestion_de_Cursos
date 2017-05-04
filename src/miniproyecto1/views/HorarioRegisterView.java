@@ -240,7 +240,5 @@ public class HorarioRegisterView extends javax.swing.JFrame {
         inicioJSpinner.setToolTipText("Ingrese la hora de inicio del bloque de horario");
         finalJSpinner.setToolTipText("Ingrese la hora final del bloque de horario");
     }
-    
-  
 
 }

@@ -27,7 +27,7 @@ import miniproyecto1.utils.PDFGenerator;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class MenuView extends javax.swing.JFrame {
     /**
@@ -343,7 +343,7 @@ public class MenuView extends javax.swing.JFrame {
             {
                 
                 try {
-                    CursoIndexView cursoEditView = new CursoIndexView(db);
+                    CursoRegisterView cursoEditView = new CursoRegisterView(db);
                     cursoEditView.setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
@@ -351,7 +351,7 @@ public class MenuView extends javax.swing.JFrame {
                 
             }
         });
-        verMenu.add(curso);
+        registrarMenu.add(curso);
         
         
         
@@ -369,8 +369,6 @@ public class MenuView extends javax.swing.JFrame {
             }
         });
         registrarMenu.add(instructor);
-        
-        
         
         JMenuItem admin = new JMenuItem("Administrador");
         admin.addActionListener(new ActionListener(){
@@ -483,7 +481,21 @@ public class MenuView extends javax.swing.JFrame {
                 }
             }
         });
-        verMenu.add(aula);            
+        verMenu.add(aula); 
+        
+        JMenuItem curso = new JMenuItem("Curso");
+        aula.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                try {
+                    CursoIndexView indexView = new CursoIndexView(db);
+                    indexView.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        verMenu.add(curso); 
     }
     
     

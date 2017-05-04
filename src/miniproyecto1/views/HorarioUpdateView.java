@@ -20,7 +20,7 @@ import miniproyecto1.models.Horario;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class HorarioUpdateView extends javax.swing.JFrame {
 

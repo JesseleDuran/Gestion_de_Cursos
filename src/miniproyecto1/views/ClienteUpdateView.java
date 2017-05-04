@@ -8,7 +8,6 @@ package miniproyecto1.views;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,7 +17,7 @@ import miniproyecto1.models.Cliente;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class ClienteUpdateView extends javax.swing.JFrame {
 

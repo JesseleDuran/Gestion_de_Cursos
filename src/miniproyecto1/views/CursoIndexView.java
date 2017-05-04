@@ -20,7 +20,7 @@ import miniproyecto1.models.Curso;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class CursoIndexView extends javax.swing.JFrame {
 

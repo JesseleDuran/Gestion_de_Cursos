@@ -8,16 +8,14 @@ package miniproyecto1.controllers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import miniproyecto1.dbConnections.MySQLdbConnection;
-import miniproyecto1.models.Admin;
 import miniproyecto1.utils.Encrypter;
 
 /**
  *
- * @author Mota
+ * @author Jessel Durán
  */
 public class AdminController 
 {
-
     public AdminController() {
     }   
     
@@ -38,6 +36,5 @@ public class AdminController
         }
         db.close();    
         return count;
-    }
-    
+    } 
 }

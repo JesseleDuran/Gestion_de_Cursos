@@ -20,7 +20,7 @@ import miniproyecto1.models.Aula;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class AulaIndexView extends javax.swing.JFrame {
 
@@ -164,7 +164,6 @@ public class AulaIndexView extends javax.swing.JFrame {
             System.out.println(id);
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -192,7 +191,7 @@ public class AulaIndexView extends javax.swing.JFrame {
         db.close();
     }
  
-    
+  
     public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException 
     {
         ResultSetMetaData metaData = rs.getMetaData();

@@ -9,7 +9,7 @@ import java.sql.Time;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class Horario 
 {

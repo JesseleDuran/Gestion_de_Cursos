@@ -27,7 +27,7 @@ import miniproyecto1.models.Inscripcion;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class InscripcionRegisterView extends javax.swing.JFrame {
 

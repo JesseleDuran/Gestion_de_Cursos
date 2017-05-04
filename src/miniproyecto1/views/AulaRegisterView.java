@@ -13,7 +13,7 @@ import miniproyecto1.models.Aula;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class AulaRegisterView extends javax.swing.JFrame {
 
@@ -202,7 +202,16 @@ public class AulaRegisterView extends javax.swing.JFrame {
     public void initJText() throws Exception
     {
         Controller<Aula> controller = new Controller<Aula>(Aula.class);
-        int id = controller.getLast(db);
-        idField.setText(Integer.toString(id+1));
+        Integer id = controller.getLast(db);
+        
+        
+        if(id !=  null)
+        {
+            idField.setText(Integer.toString(id+1));
+        }
+        else
+        {
+            idField.setText("");
+        }
     }
 }

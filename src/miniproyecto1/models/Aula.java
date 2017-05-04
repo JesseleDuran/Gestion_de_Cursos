@@ -7,7 +7,7 @@ package miniproyecto1.models;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class Aula 
 {
@@ -34,7 +34,5 @@ public class Aula
     public void setId(int id) {
         this.id = id;
     }
-    
-    
-    
+  
 }

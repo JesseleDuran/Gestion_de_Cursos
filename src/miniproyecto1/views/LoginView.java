@@ -7,7 +7,6 @@ package miniproyecto1.views;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,11 +15,10 @@ import miniproyecto1.controllers.AdminController;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
 import miniproyecto1.models.Admin;
-import miniproyecto1.models.Inscripcion;
 
 /**
  *
- * @author Mota
+ * @author Jessele Durán
  */
 public class LoginView extends javax.swing.JFrame {
 

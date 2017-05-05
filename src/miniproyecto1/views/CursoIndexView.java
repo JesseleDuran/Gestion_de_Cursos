@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
+import miniproyecto1.models.Cliente;
 import miniproyecto1.models.Curso;
 
 /**
@@ -178,10 +179,12 @@ public class CursoIndexView extends javax.swing.JFrame {
             
             actual.put("id", id);
             result = curso.findOne(actual, db);
-            
-            /*CursoUpdateView updateView = new CursoUpdateView(db, result);
-            updateView.setVisible(true);*/
+            System.out.println(result);
+            CursoUpdateView updateView = new CursoUpdateView(db, result);
+            updateView.setVisible(true);
             dispose();
+    
+            
         } catch (Exception ex) {
             Logger.getLogger(ClienteIndexView.class.getName()).log(Level.SEVERE, null, ex);
         }

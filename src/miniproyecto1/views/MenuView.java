@@ -484,7 +484,7 @@ public class MenuView extends javax.swing.JFrame {
         verMenu.add(aula); 
         
         JMenuItem curso = new JMenuItem("Curso");
-        aula.addActionListener(new ActionListener(){
+        curso.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
             {
                 try {

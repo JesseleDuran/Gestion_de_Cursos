@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
+import miniproyecto1.models.Cliente;
 import miniproyecto1.models.Instructor;
 
 /**
@@ -140,7 +141,20 @@ public class InstructorIndexView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
+       try {
+            Controller<Instructor> instructor = new Controller<Instructor>(Instructor.class);
+            LinkedHashMap<String, Object> actual = new LinkedHashMap<String, Object>();
+            LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
+            
+            actual.put("cedula", id);
+            result = instructor.findOne(actual, db);
+            
+            InstructorUpdateView updateView = new InstructorUpdateView(db, result);
+            updateView.setVisible(true);
+            dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteIndexView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

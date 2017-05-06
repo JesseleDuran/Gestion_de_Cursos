@@ -11,36 +11,34 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Vector;
-import java.lang.Object;
 import java.util.LinkedHashMap;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import miniproyecto1.controllers.Controller;
 import miniproyecto1.dbConnections.MySQLdbConnection;
-import miniproyecto1.models.Curso_instructor;
 import miniproyecto1.models.Instructor;
 
 /**
  *
- * @author Jessele Durán
+ * @author Mota
  */
-public class InstructorRegisterView extends javax.swing.JFrame {
+public class InstructorUpdateView extends javax.swing.JFrame {
 
     /**
-     * Creates new form InstructorRegisterView
+     * Creates new form InstructorUpdateView
      */
-    public InstructorRegisterView(MySQLdbConnection db) throws Exception {
-        super("Registrar Instructor");
+    public InstructorUpdateView(MySQLdbConnection db, LinkedHashMap<String, Object> instructor) {
+        super("Actualizar Cliente");
         this.db = db;
+        this.instructor = instructor;
         initComponents();
         restringirTeclas();
-        initButtons();
-        fillTable();
- 
+        initJtext();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -53,71 +51,26 @@ public class InstructorRegisterView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        ciField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        aceptarButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        cancelarButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
         educacionComboBox = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         telefonoField = new javax.swing.JTextField();
+        ciField = new javax.swing.JTextField();
         apellidoField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        aceptarButton = new javax.swing.JButton();
+        cancelarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setText("Apellido");
-
-        nameField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        nameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel1.setText("Nombre");
-
-        jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel4.setText("Teléfono");
-
-        ciField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        ciField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ciFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel5.setText("Cédula de Identidad");
-
-        aceptarButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        aceptarButton.setText("Aceptar");
-        aceptarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aceptarButtonActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel3.setText("Registrar Instructor");
-
-        cancelarButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        cancelarButton.setText("Cancelar");
-        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarButtonActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel6.setText("Nivel de Formación");
@@ -129,19 +82,39 @@ public class InstructorRegisterView extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel2.setText("Apellido");
+
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel7.setText("Correo Electrónico");
+
+        nameField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        nameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameFieldActionPerformed(evt);
+            }
+        });
 
         educacionComboBox.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         educacionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Educación Básica", "Técnico Medio", "Educación Profesional", "Postgrado", "Máster", "Doctorado" }));
 
-        jLabel8.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel8.setText("Cursos a Dictar");
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel1.setText("Nombre");
+
+        jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel4.setText("Teléfono");
 
         telefonoField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         telefonoField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefonoFieldActionPerformed(evt);
+            }
+        });
+
+        ciField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        ciField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ciFieldActionPerformed(evt);
             }
         });
 
@@ -152,41 +125,39 @@ public class InstructorRegisterView extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+        jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel5.setText("Cédula de Identidad");
+
+        aceptarButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        aceptarButton.setText("Actualizar");
+        aceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarButtonActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+
+        cancelarButton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        cancelarButton.setText("Cancelar");
+        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121)
+                .addGap(67, 67, 67)
                 .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(141, 141, 141))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,135 +173,115 @@ public class InstructorRegisterView extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(educacionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 27, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(191, 191, 191)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(educacionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(167, 167, 167)
+                            .addComponent(jLabel3)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addContainerGap(300, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(apellidoField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ciField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(educacionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aceptarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(26, 26, 26)
+                    .addComponent(jLabel3)
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(apellidoField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ciField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(educacionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(86, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailFieldActionPerformed
+
     private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameFieldActionPerformed
+
+    private void telefonoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_telefonoFieldActionPerformed
 
     private void ciFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ciFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ciFieldActionPerformed
 
+    private void apellidoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apellidoFieldActionPerformed
+
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
-        ArrayList<String> cursos= myMethod();
-        
+
         try
         {
- 
             if(validaciones() != true)
             {
                 LinkedHashMap<String, Object> map = new LinkedHashMap<String,Object>();
-           
+
                 map.put("nvl_formacion", educacionComboBox.getSelectedItem().toString().toUpperCase());
                 map.put("nombre", nameField.getText().toUpperCase());
                 map.put("cedula", Integer.parseInt(ciField.getText()));
                 map.put("apellido", apellidoField.getText().toUpperCase());
                 map.put("correo", emailField.getText().toUpperCase());
                 map.put("telefono", telefonoField.getText());
-            
-                Controller<Instructor> instructorController = new Controller<Instructor>(Instructor.class);
- 
-                if(instructorController.insert(map, db) == true)
+
+                Controller<Instructor> controller = new Controller<Instructor>(Instructor.class);
+
+                if(controller.editCI(map, db, 0, (long) instructor.get("3")) == true)
                 {
-                    Controller<Curso_instructor> controllerCurso_instructor = new Controller<Curso_instructor>(Curso_instructor.class); 
-                    
-                    for (int i=0;i < cursos.size();i++)
-                    {
-                        LinkedHashMap<String, Object> mapInstructor_curso = new LinkedHashMap<String,Object>();
-                        
-                        mapInstructor_curso.put("id_curso", cursos.get(i));
-                        mapInstructor_curso.put("ci_instructor", Integer.parseInt(ciField.getText()));
-                        System.out.println(mapInstructor_curso);
-                        controllerCurso_instructor.insert(mapInstructor_curso, db);
-                    }
-    
                     dispose();
-                    JOptionPane.showMessageDialog(null, "El Instructor se ha registrado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El Instructor se ha actualizado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else
                 {
-                    
-                    JOptionPane.showMessageDialog(null,"Error: El instructor ya ha sido registrado","ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Error al actualizar Instructor","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
-            }    
+            }
         }
         catch(Exception e)
-        {                  
-             Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, e);
-            JOptionPane.showMessageDialog(null,"Error: "+e.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);   
-            
-        } 
+        {
+            Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, e);
+
+            JOptionPane.showMessageDialog(null,"Error: "+e.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_aceptarButtonActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
-         dispose() ;
+        dispose() ;
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailFieldActionPerformed
-
-    private void telefonoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoFieldActionPerformed
-
-    private void apellidoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_apellidoFieldActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-       
-    }//GEN-LAST:event_jTable1MouseClicked
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarButton;
@@ -346,9 +297,6 @@ public class InstructorRegisterView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField telefonoField;
     // End of variables declaration//GEN-END:variables
@@ -356,11 +304,23 @@ public class InstructorRegisterView extends javax.swing.JFrame {
     DefaultListModel cursoList = new DefaultListModel();
     private KeyListener eventosDeTecla;
     private KeyListener eventosDeTeclaOnlyLetters;
+    LinkedHashMap<String, Object> instructor;
     
+    private void initJtext()
+    {
+
+        nameField.setText((String) instructor.get("2"));
+        ciField.setText(Long.toString((long) instructor.get("3")));
+        apellidoField.setText((String) instructor.get("4"));
+        emailField.setText((String) instructor.get("5"));
+        telefonoField.setText((String) instructor.get("6"));
+    
+    }
+       
     private void initButtons()
     {
         emailField.setToolTipText("Debe ingresar su correo con '@' y '.domain'");
-        jTable1.setToolTipText("Puede escoger varios en caso de que aplique");
+        //jTable1.setToolTipText("Puede escoger varios en caso de que aplique");
     }
     
     private void restringirTeclas()
@@ -461,8 +421,7 @@ public class InstructorRegisterView extends javax.swing.JFrame {
         return false;
     }
     
-    public void fillTable() throws Exception
-    {
+    /*{
         String sql = "SELECT * FROM curso";
         db.open();
         ResultSet resultSet = db.getResultSet(sql);
@@ -525,9 +484,7 @@ public class InstructorRegisterView extends javax.swing.JFrame {
         System.out.println(result);
         
         return result;  
-    }
+    }*/
     
-   
-
 
 }

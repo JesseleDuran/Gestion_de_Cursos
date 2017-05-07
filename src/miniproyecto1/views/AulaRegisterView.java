@@ -81,7 +81,6 @@ public class AulaRegisterView extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel5.setText("Estatus");
 
-        idField.setEditable(false);
         idField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         idField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +151,7 @@ public class AulaRegisterView extends javax.swing.JFrame {
                 estatus = 0;
             }
 
-            
+            map.put("id", idField.getText());
             map.put("estatus", estatus);
 
             Controller<Aula> controller = new Controller<Aula>(Aula.class);
@@ -164,7 +163,7 @@ public class AulaRegisterView extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null,"Error al registrar Aula","ERROR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Error, el número de Aula ya existe, por favor, ingrese otro","ERROR",JOptionPane.ERROR_MESSAGE);
             }
             
         }

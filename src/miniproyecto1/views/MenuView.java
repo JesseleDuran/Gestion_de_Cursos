@@ -422,6 +422,20 @@ public class MenuView extends javax.swing.JFrame {
         });
         verMenu.add(participante); 
         
+        JMenuItem curso = new JMenuItem("Curso");
+        curso.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) 
+            {
+                try {
+                    CursoIndexView indexView = new CursoIndexView(db);
+                    indexView.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        verMenu.add(curso); 
+        
         JMenuItem instructor = new JMenuItem("Instructor");
         instructor.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) 
@@ -483,19 +497,7 @@ public class MenuView extends javax.swing.JFrame {
         });
         verMenu.add(aula); 
         
-        JMenuItem curso = new JMenuItem("Curso");
-        curso.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) 
-            {
-                try {
-                    CursoIndexView indexView = new CursoIndexView(db);
-                    indexView.setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        verMenu.add(curso); 
+        
     }
     
     

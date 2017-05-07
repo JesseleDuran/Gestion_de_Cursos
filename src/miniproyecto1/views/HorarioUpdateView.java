@@ -215,7 +215,7 @@ public class HorarioUpdateView extends javax.swing.JFrame {
             if(controller.edit(map, db, id) == true)
             {
                 dispose();
-                JOptionPane.showMessageDialog(null, "El Horario se ha actualizad correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El Horario se ha actualizado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {

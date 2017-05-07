@@ -185,11 +185,11 @@ public class AdminRegisterView extends javax.swing.JFrame {
                 if(controller.insert(map, db) == true)
                 {
                     dispose();
-                    JOptionPane.showMessageDialog(null, "El Participante se ha registrado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El Administrador se ha registrado correctamente", "Registro con éxito", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,"Error al registrar Cliente","ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Error al registrar Administrador","ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
